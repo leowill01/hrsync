@@ -22,30 +22,30 @@ Shadow=".rsync_shadow"
 # arg tests
 	# Start doing things
 
-	if [ "${Source:0:1}" != / ]
-	then
-		echo "Source path needs to be an absolute path"
-		exit 0
-	fi
+	# if [ "${Source:0:1}" != / ]
+	# then
+	# 	echo "Source path needs to be an absolute path"
+	# 	exit 0
+	# fi
 
-	if [ "${Target:0:1}" != / ]
-	then
-		echo "Target path needs to be an absolute path"
-		exit 0
-	fi
+	# if [ "${Target:0:1}" != / ]
+	# then
+	# 	echo "Target path needs to be an absolute path"
+	# 	exit 0
+	# fi
 
-	if [ -z "$2" ]
-	then
-		echo "Usage:"
-		echo "	hrsync source target"
-		echo "	hrsync source target remoteHost"
-		echo "Example:"
-		echo "	hrsync /home/user/Documents /mnt/external/Documents"
-		echo "	hrsync /home/user/Documents /root/Documents root@example.com"
-		echo "Please see the README file"
+	# if [ -z "$2" ]
+	# then
+	# 	echo "Usage:"
+	# 	echo "	hrsync source target"
+	# 	echo "	hrsync source target remoteHost"
+	# 	echo "Example:"
+	# 	echo "	hrsync /home/user/Documents /mnt/external/Documents"
+	# 	echo "	hrsync /home/user/Documents /root/Documents root@example.com"
+	# 	echo "Please see the README file"
 
-		exit 0
-	fi
+	# 	exit 0
+	# fi
 
 # 0) MAKE INITIAL SHADOW DIR ON SOURCE ################################################################
 
@@ -68,8 +68,8 @@ Shadow=".rsync_shadow"
 	# also copies the SOURCE SHADOW DIR to the TARGET SHADOW DIR preserving the hard links with -H. it looks for hard linked files in the SOURCE and links the same ones on the TARGET
 
 	# do real syncronization
-	if [ -z "$3" ]
-	then
+	# if [ -z "$3" ]
+	# then
 		# local version
 		rsync \
 		--progress \
@@ -83,20 +83,20 @@ Shadow=".rsync_shadow"
 		"$Target"
 		# NOTE: this DOES take time to transfer 1st time. 
 		# completely transfers all SOURCE to TARGET including shadow dir of hard links with -H
-	else
-		# remote version
-		rsync \
-		-axXhHv \
-		--stats \
-		--no-inc-recursive \
-		--numeric-ids \
-		--delete \
-		--delete-after \
-		"$Source"/ \
-		$TargetHost:"'$Target'"
-	fi
+	# else
+	# 	# remote version
+	# 	rsync \
+	# 	-axXhHv \
+	# 	--stats \
+	# 	--no-inc-recursive \
+	# 	--numeric-ids \
+	# 	--delete \
+	# 	--delete-after \
+	# 	"$Source"/ \
+	# 	$TargetHost:"'$Target'"
+	# fi
 
-status=$?
+# status=$?
 
 # BLOG POST TITLE: RSYNC: >=2-WAY SYNC, DETECT MOVED FILES, SNAPSHOT BACKUP
 
@@ -117,7 +117,7 @@ status=$?
 		# mirror SOURCE_SHADOW from SOURCE, deleting stuff from SOURCE_SHADOW (making new HL mirror of SOURCE), and linking SOURCE as source of finding hard linked files for renames... i think i have that right
 		# FIXME: link dest is not on dest?
 
-		#update target shadow directory
+		# update target shadow directory
 		# if [ -z "$3" ]
 		# then
 			# local version
@@ -129,9 +129,9 @@ status=$?
 			"$Target/" \
 			"$Target/$Shadow"
 	# else
-		# remote version
-			ssh $TargetHost \
-			"rsync -a --delete --link-dest='$Target' --exclude='/$Shadow' '$Target/' '$Target/$Shadow'"
+	# 	remote version
+	# 		ssh $TargetHost \
+	# 		"rsync -a --delete --link-dest='$Target' --exclude='/$Shadow' '$Target/' '$Target/$Shadow'"
 	# 	fi
 	# fi
 
